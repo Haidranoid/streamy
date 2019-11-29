@@ -48,7 +48,7 @@ export const fetchStream = id => async dispatch => {
 
 
 export const editStream = (id,values) => async dispatch => {
-  const response = await axios.put(`${url_api}/streams/${id}`,values);
+  const response = await axios.patch(`${url_api}/streams/${id}`,values);
 
   dispatch({
     type:EDIT_STREAM,

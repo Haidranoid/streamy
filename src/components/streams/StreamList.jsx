@@ -55,8 +55,6 @@ class StreamList extends React.Component {
   }
 
   render() {
-    const {streams} = this.props;
-    console.log(streams);
 
     return (
       <div>
