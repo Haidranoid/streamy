@@ -15,6 +15,10 @@ const Header = () => {
               to="/"
               className="item">All Streams </NavLink>
 
+            <NavLink
+              to="/streams/new"
+              className="item">New Stream </NavLink>
+
             <GoogleAuth/>
 
           </div>
