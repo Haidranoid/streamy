@@ -8,20 +8,26 @@ import {
 import lodash from 'lodash'
 
 const initialState = {
-  streams: []
+  streams: [],
+  stream: {},
 };
 
 const streamsReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case CREATE_STREAM:
-      return {...state,[action.payload.id]: action.payload};
+      return {...state, [action.payload.id]: action.payload};
+
+/*
+    case FETCH_STREAM:
+      return {...state, [action.payload.id]: action.payload};
+*/
 
     case FETCH_STREAM:
-      return {...state,[action.payload.id]: action.payload};
+      return {...state, stream: action.payload};
 
     case EDIT_STREAM:
-      return {...state,[action.payload.id]: action.payload};
+      return {...state, [action.payload.id]: action.payload};
 
     case FETCH_STREAMS:
       return {...state, streams: [...action.payload]};
