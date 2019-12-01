@@ -10,10 +10,10 @@ import {
 
 const url_api = process.env.REACT_APP_API_URL;
 
-export const createStream = values => (dispatch,getState) =>{
+export const createStream = values => (dispatch, getState) => {
   const {userId} = getState().auth;
 
-  axios.post(`${url_api}/streams`,{...values,userId})
+  axios.post(`${url_api}/streams`, {...values, userId})
     .then(r => {
       dispatch({
         type: CREATE_STREAM,
@@ -31,27 +31,36 @@ export const createStream = values => (dispatch,getState) =>{
 export const fetchStreams = () => async dispatch => {
   const response = await axios.get(`${url_api}/streams`);
   dispatch({
-    type:FETCH_STREAMS,
+    type: FETCH_STREAMS,
     payload: response.data,
   })
 };
 
 
 export const fetchStream = id => async dispatch => {
-  const response = await axios.get(`${url_api}/streams/${id}`);
+  try {
+    const response = await axios.get(`${url_api}/streams/${id}`);
 
-  dispatch({
-    type:FETCH_STREAM,
-    payload: response.data,
-  })
+    dispatch({
+      type: FETCH_STREAM,
+      payload: response.data,
+    })
+
+  }catch (e) {
+    dispatch({
+      type: 'ERROR_FETCHING',
+      payload: e,
+    })
+  }
+
 };
 
 
-export const editStream = (id,values) => async dispatch => {
-  const response = await axios.patch(`${url_api}/streams/${id}`,values);
+export const editStream = (id, values) => async dispatch => {
+  const response = await axios.patch(`${url_api}/streams/${id}`, values);
 
   dispatch({
-    type:EDIT_STREAM,
+    type: EDIT_STREAM,
     payload: response.data,
   });
   history.push('/');
@@ -61,7 +70,8 @@ export const deleteStream = id => async dispatch => {
   const response = await axios.delete(`${url_api}/streams/${id}`);
 
   dispatch({
-    type:DELETE_STREAM,
+    type: DELETE_STREAM,
     payload: response.data,
-  })
+  });
+  history.push('/')
 };
